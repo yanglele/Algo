@@ -178,4 +178,8 @@ public class LongestIncreasingSubsequence {
 
 	}
 
+	public void nm() {
+
+	}
+
 }
