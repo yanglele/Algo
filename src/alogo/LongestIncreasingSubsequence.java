@@ -5,12 +5,12 @@ public class LongestIncreasingSubsequence {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		int[] arr = new int[] { 1, 4, 5, 6, 8, 11 };
-		int result = binarySearch(arr, 8, 0, arr.length - 1);
-		System.out.println(result);
-		// int length = arr.length;
-		// int result = getLongestIncreasingSubsequence2(arr, length);
+		int[] arr = new int[] { 1, 4, 5, 6, 8, 2, 5, 11 };
+		// int result = binarySearch1(arr, 0, 0, arr.length - 1);
 		// System.out.println(result);
+		int length = arr.length;
+		int result = getLongestIncreasingSubsequence2(arr, length);
+		System.out.println(result);
 	}
 
 	// 只计算最长子数组数目
@@ -125,20 +125,24 @@ public class LongestIncreasingSubsequence {
 		arrLeastNum[0] = arr[0];
 
 		for (int i = 1; i < length; i++) {
-			boolean changed = false;
+			// boolean changed = false;
+			// for (int j = 0; j < longestResult; j++) {
+			// if (arrLeastNum[j] > arr[i]) {
+			// arrLeastNum[j] = arr[i];
+			// changed = true;
+			// break;
+			// }
+			// }
+			// if (!changed) {
+			// arrLeastNum[longestResult] = arr[i];
+			// longestResult++;
+			// }
 
-			for (int j = 0; j < longestResult; j++) {
-				if (arrLeastNum[j] > arr[i]) {
-					arrLeastNum[j] = arr[i];
-					changed = true;
-					break;
-				}
-			}
-			if (!changed) {
-				arrLeastNum[longestResult] = arr[i];
+			// 使用二分查找降低时间复杂度
+			int index = binarySearch1(arrLeastNum, arr[i], 0, longestResult - 1);
+			arrLeastNum[index] = arr[i];
+			if (index >= longestResult)
 				longestResult++;
-			}
-
 		}
 
 		return longestResult;
@@ -148,7 +152,7 @@ public class LongestIncreasingSubsequence {
 	public static int binarySearch(int[] arr, int num, int left, int right) {
 
 		while (left <= right) {
-			int middle = left + ((right - left)) >> 1;//// 防止溢出，移位也更高效。同时，每次循环都需要更新。
+			int middle = left + ((right - left) >> 1);//// 防止溢出，移位也更高效。同时，每次循环都需要更新。
 
 			// 可能会有读者认为刚开始时就要判断相等，但毕竟数组中不相等的情况更多
 			// 如果每次循环都判断一下是否相等，将耗费时间
@@ -168,7 +172,7 @@ public class LongestIncreasingSubsequence {
 		if (left > right)
 			return -1;
 
-		int middle = left + ((right - left)) >> 1;
+		int middle = left + ((right - left) >> 1);
 		if (arr[middle] == num)
 			return middle;
 		else if (arr[middle] > num) {
@@ -178,8 +182,21 @@ public class LongestIncreasingSubsequence {
 
 	}
 
-	public void nm() {
+	// 修改的二分法，找到时返回下标，没找到时返回数组中大于num最小数的下标
+	//
+	public static int binarySearch1(int[] arr, int num, int left, int right) {
+		while (left <= right) {
+			int middle = left + ((right - left) >> 1);//// 防止溢出，移位也更高效。同时，每次循环都需要更新。
 
+			if (arr[middle] < num)
+				left = middle + 1;
+			else if (arr[middle] > num)
+				right = middle - 1;
+			else
+				return middle;
+		}
+		return left;// 找不到时返回数组中大于num最小数的下标，若大于数组最大值，返回arr.length
+		// return right;// 找不到时返回数组中小于num最小数的下标，若小于数组最小值，返回-1
 	}
 
 }
