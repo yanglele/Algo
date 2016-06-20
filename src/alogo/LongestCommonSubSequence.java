@@ -3,16 +3,30 @@ package alogo;
 import java.util.ArrayList;
 import java.util.List;
 
+//公共序列可以不连续
 public class LongestCommonSubSequence {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		String arr = "iloveyoull";
-		String arr1 = "istilldoloveyoutoo";
-		System.out.println(longestCommonSubSequence(arr, arr1));
+		int a = 10;
+		int b = 11;
+		String arr = "akqrshrengxqiyxuloqk";
+		String arr1 = "tdzbujtlqhecaqgwfzbc";
+
+		longestCommonSubSequenceDp(arr, arr1);
+		// System.out.println(b);
+		// System.out.println(0.06 + 0.01);
+		// BigDecimal newa = new BigDecimal(a);
+		// System.out.println(newa);
+		// if (a == b)
+		// System.out.println("a==b");
+		// System.out.println(longestCommonSubSequence(arr, arr1));
+		// traverse(arr, arr1);
 	}
 
+	// 暴力求解，先求出较小字符串的所有子串，然后求出另一字符串包含这些子串的最长子串，即为所求值，时间复杂度无法忍受
+	// O(Z^N)
 	public static int longestCommonSubSequence(String arr1, String arr2) {
 		if (arr1 == null || arr2 == null)
 			return Integer.MIN_VALUE;
@@ -92,4 +106,42 @@ public class LongestCommonSubSequence {
 		return result;
 	}
 
+	// DP算法O(N*N)
+	// http://www.cnblogs.com/zhangchaoyang/articles/2012070.html
+	public static void longestCommonSubSequenceDp(String s1, String s2) {
+		int length1 = s1.length();
+		int length2 = s2.length();
+		int[][] arr = new int[length1 + 1][length2 + 1];// 数组默认付初值0；
+
+		for (int i = 1; i < length1 + 1; i++) {
+			for (int j = 1; j < length2 + 1; j++) {
+				if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+					arr[i][j] = arr[i - 1][j - 1] + 1;
+				} else
+					arr[i][j] = Math.max(arr[i][j - 1], arr[i - 1][j]);
+			}
+		}
+
+		// 打印数组
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[0].length; j++)
+				System.out.print(arr[i][j] + " ");
+			System.out.println();
+		}
+
+		// 在填写过程中我们还是记录下当前单元格的数字来自于哪个单元格，以方便最后我们回溯找出最长公共子串。
+		// 有时候左上、左、上三者中有多个同时达到最大，那么任取其中之一，但是在整个过程中你必须遵循固定的优先标准。在我的代码中优先级别是左上>左>上。
+
+		while (length1 > 0 && length2 > 0) {
+			if (s1.charAt(length1 - 1) == s2.charAt(length2 - 1)) {
+				System.out.print(s1.charAt(length1 - 1));
+				length1--;
+				length2--;
+			} else if (arr[length1][length2 - 1] >= arr[length1 - 1][length2]) {
+				length2--;
+			} else {
+				length1--;
+			}
+		}
+	}
 }

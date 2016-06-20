@@ -2,6 +2,8 @@ package alogo;
 
 public class test1 {
 
+	static int a;
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -18,13 +20,23 @@ public class test1 {
 		r2.right = r5;
 		r3.right = r6;
 
+		// testArrVal();
+
+		System.out.println(a);
 		// Integer aInteger = new Integer(968);
 		// getNum(aInteger);
 		// System.out.println("aInteger=" + aInteger);
+		// List<String> list1 = new ArrayList<>();
+		// list1.add("adc");
+		// list1.add("qwe");
+		// Iterator<String> iterator = list1.iterator();
+		// while (iterator.hasNext()) {
+		// System.out.println(iterator.next());
+		// }
 
-		int[] a = { 1, 2 };
-		getNum(a);
-		System.out.println(a[0]);
+		// int[] a = { 1, 2 };
+		// getNum(a);
+		// System.out.println(a[0]);
 	}
 
 	public static void getNum(Integer a) {
@@ -35,4 +47,13 @@ public class test1 {
 	public static void getNum(int[] a) {
 		a[0] = 100;
 	}
+
+	public static void testArrVal() {
+		int[] a = new int[5];
+		int b;
+		for (int tmp : a)
+			System.out.println(tmp);
+		// System.out.println(b);
+	}
+
 }
