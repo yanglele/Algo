@@ -9,8 +9,8 @@ public class LongestCommonSubString {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		String s1 = "caba";
-		String s2 = "bab";
+		String s1 = "cabcab";
+		String s2 = "cab";
 		getLongestCommonSubString2(s1, s2);
 	}
 
@@ -52,6 +52,8 @@ public class LongestCommonSubString {
 	public static void getLongestCommonSubString(String s1, String s2) {
 		int m = s1.length();
 		int n = s2.length();
+		int max = 0;
+		int index = 0;
 		int[][] arr = new int[m][n];
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
@@ -60,22 +62,28 @@ public class LongestCommonSubString {
 						arr[i][j] = arr[i - 1][j - 1] + 1;
 					else
 						arr[i][j] = 1;
+					if (arr[i][j] > max) {
+						max = arr[i][j];
+						index = i;
+					}
 				}
 			}
 
 		}
-		for (int i = 0; i < m; i++) {
-			for (int j = 0; j < n; j++)
-				System.out.print(arr[i][j] + " ");
-			System.out.println();
+		System.out.println("maxLength=" + max);
+
+		for (int i = index + 1 - max; i <= max; i++) {
+			System.out.print(s1.charAt(i) + " ");
 		}
 	}
 
-	// 进而优化为一维数组记录值
-	public static void getLongestCommonSubString2(String s1, String s2) {
+	// 进而优化为一维数组记录值,并打印最长公共子串
+	public static void getLongestCommonSubString1(String s1, String s2) {
 		int m = s1.length();
 		int n = s2.length();
 		int[] arr = new int[n];
+		int maxLength = 0;
+		int index = 0;
 		for (int i = 0; i < m; i++) {
 
 			for (int j = n - 1; j >= 0; j--) {
@@ -84,16 +92,57 @@ public class LongestCommonSubString {
 						arr[j] = arr[j - 1] + 1;
 					else
 						arr[j] = 1;
+					if (arr[j] > maxLength) {
+						maxLength = arr[j];
+						index = j;
+					}
 				} else
 					arr[j] = 0;
 			}
 		}
 
+		System.out.println(maxLength);
+		printSubString(index, s2, maxLength);
+
+	}
+
+	// 通过构建二维数组记录比较值，输出所有最长子序列
+	public static void getLongestCommonSubString2(String s1, String s2) {
+		int m = s1.length();
+		int n = s2.length();
 		int max = 0;
-		for (int tmp : arr) {
-			if (tmp > max)
-				max = tmp;
+		int index = 0;
+		int[][] arr = new int[m][n];
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (s1.charAt(i) == s2.charAt(j)) {
+					if (i > 0 && j > 0)
+						arr[i][j] = arr[i - 1][j - 1] + 1;
+					else
+						arr[i][j] = 1;
+					if (arr[i][j] > max) {
+						max = arr[i][j];
+						index = i;
+					}
+				}
+			}
+
 		}
-		System.out.println(max);
+		System.out.println("max=" + max);
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (arr[i][j] == max)
+					printSubString(j, s2, max);// 使用s2
+			}
+		}
+	}
+
+	public static void printSubString(int index, String s1, int max) {
+		// System.out.println("index=" + index);
+		// System.out.println("max=" + max);
+		for (int i = index + 1 - max; i <= index; i++) {
+			System.out.print(s1.charAt(i));
+		}
+		System.out.println();
 	}
 }
