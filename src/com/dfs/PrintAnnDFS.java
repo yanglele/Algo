@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PrintAllSequence {
+public class PrintAnnDFS {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -32,6 +32,7 @@ public class PrintAllSequence {
 		}
 	}
 
+	// dfs递归求全排列，step为计算到第几个数至
 	public static void dfs(int step, int[] a, int[] book, int n) {
 
 		if (step == n) {
@@ -41,6 +42,7 @@ public class PrintAllSequence {
 			return;
 		}
 
+		// 对每一个位置都进行n次循环，分别求出所组成的数组
 		for (int i = 0; i < n; i++) {
 			if (book[i] == 0) {
 				a[step] = i + 1;
@@ -49,8 +51,7 @@ public class PrintAllSequence {
 				book[i] = 0;
 			}
 		}
-
-		// return;
+		return;
 	}
 
 }
