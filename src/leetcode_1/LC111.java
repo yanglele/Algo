@@ -19,13 +19,13 @@ public class LC111 {
 		LinkedList<TreeNode> queue = new LinkedList<>();
 		queue.add(root);
 		while (!queue.isEmpty()) {
-			
+
 			count++;
 			if (root.left == null && root.right == null) {
 				return count;
 			}
-			for(int i=0;i<next;i++){
-				
+			for (int i = 0; i < next; i++) {
+
 			}
 
 		}

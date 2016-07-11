@@ -5,45 +5,42 @@ public class QuickSort {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		int[] test={4,2,1,55,78,22,4};
-		quickSort(test, 0, test.length-1);
-		for(int a:test){
-			System.out.println(a+" ");
+		int[] test = { 4, 2, 1, 55, 78, 22, 4 };
+		quickSort(test, 0, test.length - 1);
+		for (int a : test) {
+			System.out.println(a + " ");
 		}
 	}
 
-
-	public static void quickSort(int[] arr,int start,int end){
-		int i=start;
-		int j=end;
-		int key=arr[start];
-		while(i<j){
-			while(arr[j]>=key && j>i)
+	public static void quickSort(int[] arr, int start, int end) {
+		int i = start;
+		int j = end;
+		int key = arr[start];
+		while (i < j) {
+			while (arr[j] >= key && j > i)
 				j--;
-			arr[i]=arr[j];
-			while(arr[i]<=key && i<j)
+			arr[i] = arr[j];
+			while (arr[i] <= key && i < j)
 				i++;
-			arr[j]=arr[i];
+			arr[j] = arr[i];
 		}
-		arr[i]=key;
-		
-		if(i-1>start)
-			quickSort(arr, start, i-1);
-		if(j+1<end)
-			quickSort(arr, i+1, end);
+		arr[i] = key;
+
+		if (i - 1 > start)
+			quickSort(arr, start, i - 1);
+		if (i + 1 < end)
+			quickSort(arr, i + 1, end);
 	}
-	
-	
 
 	public static void quickSort1(int[] data, int start, int end) {
-		// ÉèÖÃ¹Ø¼üÊı¾İkeyÎªÒªÅÅĞòÊı×éµÄµÚÒ»¸öÔªËØ£¬
-		// ¼´µÚÒ»ÌËÅÅĞòºó£¬keyÓÒ±ßµÄÊıÈ«²¿±Èkey´ó£¬key×ó±ßµÄÊıÈ«²¿±ÈkeyĞ¡
+		// ï¿½ï¿½ï¿½Ã¹Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½keyÎªÒªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ò»ï¿½ï¿½Ôªï¿½Ø£ï¿½
+		// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½keyï¿½Ò±ßµï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½keyï¿½ï¿½keyï¿½ï¿½ßµï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½keyĞ¡
 		int key = data[start];
-		// ÉèÖÃÊı×é×ó±ßµÄË÷Òı£¬ÍùÓÒÒÆ¶¯±Èkey´óµÄÊı
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½keyï¿½ï¿½ï¿½ï¿½ï¿½
 		int i = start;
-		// ÉèÖÃÊı×éÓÒ±ßµÄË÷Òı£¬Íù×óÒÆ¶¯±ÈkeyĞ¡µÄÊı
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò±ßµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½keyĞ¡ï¿½ï¿½ï¿½ï¿½
 		int j = end;
-		// Èç¹û×ó±ßË÷Òı±ÈÓÒ±ßË÷ÒıĞ¡£¬Ôò»¹ÓĞÊı¾İÃ»ÓĞÅÅĞò
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò±ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		while (i < j) {
 			while (data[j] >= key && j > i) {
 				j--;
@@ -55,16 +52,16 @@ public class QuickSort {
 			}
 			data[j] = data[i];
 		}
-		// ´ËÊ± i==j
+		// ï¿½ï¿½Ê± i==j
 		data[i] = key;
 
-		// µİ¹éµ÷ÓÃ
+		// ï¿½İ¹ï¿½ï¿½ï¿½ï¿½
 		if (i - 1 > start) {
-			// µİ¹éµ÷ÓÃ£¬°ÑkeyÇ°ÃæµÄÍê³ÉÅÅĞò
+			// ï¿½İ¹ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½keyÇ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			quickSort(data, start, i - 1);
 		}
 		if (i + 1 < end) {
-			// µİ¹éµ÷ÓÃ£¬°ÑkeyºóÃæµÄÍê³ÉÅÅĞò
+			// ï¿½İ¹ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½keyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			quickSort(data, i + 1, end);
 		}
 	}
