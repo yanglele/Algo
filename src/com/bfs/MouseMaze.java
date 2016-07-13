@@ -10,7 +10,7 @@ public class MouseMaze {
 
 	private static int[][] arr = { { 0, 0, 1, 1, 1, 0, 0, 1 }, { 1, 0, 0, 0, 1, 1, 1, 1 }, { 1, 0, 0, 0, 0, 0, 0, 0 },
 			{ 1, 0, 0, 0, 1, 0, 1, 1 }, { 1, 1, 1, 0, 1, 0, 0, 1 }, { 1, 0, 1, 0, 1, 1, 0, 1 },
-			{ 1, 0, 0, 0, 0, 1, 0, 0 }, { 1, 1, 1, 1, 1, 1, 1, 1 } };
+			{ 1, 0, 0, 0, 0, 0, 0, 0 }, { 1, 1, 1, 1, 1, 1, 1, 1 } };
 
 	// private static int[][] arr = { { 0, 1, 1 }, { 0, 0, 0 }, { 0, 1, 0 } };
 	// 左右上下
@@ -50,15 +50,15 @@ public class MouseMaze {
 		tmpQueue.add(head);
 
 		// tmpqueue缓冲，主要用于计算步数
-		int lastNum = tmpQueue.size();
-		int curNum = 0;
+		int curNumNum = tmpQueue.size();
+		int nextNumNum = 0;
 
-		// 为空时，说明无路可走或已经找到出口
+		// 为空时，说明无路可走
 		while (!tmpQueue.isEmpty()) {
 			// 将tmpQueue中上一步所有点依次取出
-			while (lastNum > 0) {
+			while (curNumNum > 0) {
 				Point tmp = tmpQueue.poll();
-				lastNum--;
+				curNumNum--;
 				path.add(tmp);
 				int x = tmp.getX();
 				int y = tmp.getY();
@@ -80,13 +80,13 @@ public class MouseMaze {
 						book[tx][ty] = true;
 						Point listPoint = new Point(tx, ty, tmp);
 						tmpQueue.add(listPoint);
-						curNum++;
+						nextNumNum++;
 					}
 				}
 			}
 			stepNum++;
-			lastNum = curNum;
-			curNum = 0;
+			curNumNum = nextNumNum;
+			nextNumNum = 0;
 		}
 
 	}

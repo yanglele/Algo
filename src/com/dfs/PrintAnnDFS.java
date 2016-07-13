@@ -32,6 +32,7 @@ public class PrintAnnDFS {
 		}
 	}
 
+	// n个小盒子往里放n个数
 	// dfs递归求全排列，step为计算到第几个数至
 	public static void dfs(int step, int[] a, int[] book, int n) {
 

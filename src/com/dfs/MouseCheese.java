@@ -6,28 +6,30 @@ import java.util.List;
 public class MouseCheese {
 
 	// 9为奶酪
-	private static int[][] arr = { { 0, 0, 1, 1, 1, 0, 0, 1 }, { 1, 0, 0, 0, 1, 1, 1, 1 }, { 1, 0, 0, 0, 0, 0, 0, 0 },
-			{ 1, 0, 0, 0, 9, 0, 1, 1 }, { 1, 1, 1, 0, 1, 0, 0, 1 }, { 1, 0, 1, 1, 1, 1, 0, 1 },
-			{ 1, 0, 0, 0, 0, 1, 0, 1 }, { 1, 1, 1, 1, 1, 1, 1, 1 } };
+	// private static int[][] arr = { { 0, 0, 1, 1, 1, 0, 0, 1 }, { 1, 0, 0, 0,
+	// 1, 1, 1, 1 }, { 1, 0, 0, 0, 0, 0, 0, 0 },
+	// { 1, 0, 0, 0, 9, 0, 1, 1 }, { 1, 1, 1, 0, 1, 0, 0, 1 }, { 1, 0, 1, 1, 1,
+	// 1, 0, 1 },
+	// { 1, 0, 0, 0, 0, 1, 0, 1 }, { 1, 1, 1, 1, 1, 1, 1, 1 } };
 
-	// private static int[][] arr = { { 0, 1, 1 }, { 0, 0, 0 }, { 0, 1, 0 } };
+	private static int[][] arr = { { 1, 1, 1, 1 }, { 0, 0, 1, 1 }, { 0, 1, 0, 1 }, { 0, 0, 0, 0 } };
 
 	// 左右上下
 	private static int[][] step1 = { { 0, -1 }, { 0, 1 }, { -1, 0 }, { 1, 0 } };
 	private static int min = Integer.MAX_VALUE;
 	private static boolean[][] book = new boolean[arr.length][arr[0].length];
+	private static int destx = 3;
+	private static int desty = 3;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		MouseCheese test = new MouseCheese();
-		// book[0][0] = true;
-		// test.findTheCheese(0, 0, 0, 3, 4);
-		// System.out.println("min=" + min);
-
-		tmppath.add(new Path(0, 0));
-		book[0][0] = true;
-		// test.findTheCheese1(0, 0, 0, 2, 2);
-		test.findTheCheesePath(0, 0, 0, 3, 4);
+		int descx = 1;
+		int descy = 1;
+		tmppath.add(new Path(descx, descy));
+		book[descx][descy] = true;
+		// test.findTheCheese(0, 0, 0);
+		test.findTheCheesePath(descx, descy, 0);
 		System.out.println("min=" + min);
 		for (Path tmp : path)
 			System.out.println(tmp.getX() + ":" + tmp.getY());
@@ -35,11 +37,11 @@ public class MouseCheese {
 
 	// 求从起始点到奶酪最短步数
 	// dfs
-	private void findTheCheese(int x, int y, int step, int xx, int yy) {
+	private void findTheCheese(int x, int y, int step) {
 		int tx = 0, ty = 0;
 
 		// 如果找到，返回
-		if (x == xx && y == yy) {
+		if (x == destx && y == desty) {
 			if (step < min)
 				min = step;
 			return;
@@ -59,7 +61,7 @@ public class MouseCheese {
 			// 可行，标记，继续dfs，返回时记得将其路径标记为false；
 			if (arr[tx][ty] != 1 && book[tx][ty] == false) {
 				book[tx][ty] = true;
-				findTheCheese(tx, ty, step + 1, xx, yy);
+				findTheCheese(tx, ty, step + 1);
 				book[tx][ty] = false;
 			}
 
@@ -73,11 +75,11 @@ public class MouseCheese {
 	private static List<Path> path = new ArrayList<>();
 	private static List<Path> tmppath = new ArrayList<>();
 
-	private void findTheCheesePath(int x, int y, int step, int xx, int yy) {
+	private void findTheCheesePath(int x, int y, int step) {
 		int tx = 0, ty = 0;
 
 		// 如果找到，返回
-		if (x == xx && y == yy) {
+		if (x == destx && y == desty) {
 			if (step < min) {
 				min = step;
 				path.clear();
@@ -105,7 +107,7 @@ public class MouseCheese {
 				Path tMap = new Path(tx, ty);
 				tmppath.add(tMap);// 走到此点，加入tmppath
 				book[tx][ty] = true;
-				findTheCheesePath(tx, ty, step + 1, xx, yy);
+				findTheCheesePath(tx, ty, step + 1);
 				tmppath.remove(tMap);// 此点可用时删除此点
 				book[tx][ty] = false;
 			}
