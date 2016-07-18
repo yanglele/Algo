@@ -16,6 +16,10 @@ public class TestArray {
 		// b[1] = 0;
 		for (char tmp : b)
 			System.out.println(tmp);
+
+		int[][] arr = new int[2][2];
+		arr[0][0] = 1;
+		System.out.println(arr[0][0]);
 	}
 
 }

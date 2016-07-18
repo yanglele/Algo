@@ -8,6 +8,7 @@ public class PrintCnkDfs {
 		int n = 5;
 		int k = 3;
 		int[] a = new int[k];
+		boolean[] book = new boolean[n];
 		dfs(n, k, a, 0, 0);
 	}
 
@@ -25,4 +26,5 @@ public class PrintCnkDfs {
 			cur += 1;
 		}
 	}
+
 }
