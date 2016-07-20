@@ -50,7 +50,7 @@ public class MouseMaze {
 		tmpQueue.add(head);
 
 		// tmpqueue缓冲，主要用于计算步数
-		int curNumNum = tmpQueue.size();
+		int curNumNum = 1;
 		int nextNumNum = 0;
 
 		// 为空时，说明无路可走

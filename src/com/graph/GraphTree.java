@@ -12,12 +12,13 @@ public class GraphTree {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+		int[][] arr = new int[][] { { 0, 1, 0, 1 }, { 1, 0, 1, 0 }, { 0, 1, 0, 0 }, { 1, 0, 0, 0 } };
 		// int[][] arr = new int[][] { { 0, 1, 0, 1 }, { 1, 0, 1, 0 }, { 0, 1,
-		// 0, 0 }, { 1, 0, 0, 0 } };
-		int[][] arr = new int[][] { { 0, 1, 0, 1 }, { 1, 0, 0, 0 }, { 0, 0, 0, 0 }, { 1, 0, 0, 0 } };
+		// 0, 1 }, { 1, 0, 1, 0 } };
 		GraphTree test = new GraphTree();
 		// System.out.println(test.isTree(arr));
-		System.out.println(isTreeBfs(arr));
+		// System.out.println(isTreeBfs(arr));
+		System.out.println(isTreeDfs(arr));
 	}
 
 	public static int isTree(int[][] grid) {
@@ -48,13 +49,16 @@ public class GraphTree {
 
 	// 树不能有孤立，dfs能访问点数=n
 	// 树不能有环，即边数为顶点数-1，因为要求是否有环，所以不能用book记录已访问的点，这样自动屏蔽环
-	public static int isTreeBfs(int arr[][]) {
+	// 但是求点时不能循环需要book，求边时需要循环，不用book
+	public static boolean isTreeBfs(int arr[][]) {
 		int length = arr.length;
 		Queue<Integer> queue = new LinkedList<>();
-		int nodeNum = 0;
+		boolean[] book = new boolean[length];
+		int nodeNum = 1;
 		int edgeNum = 0;
 
 		queue.add(0);
+		book[0] = true;
 		int curNum = 1;
 		int nextNum = 0;
 
@@ -63,23 +67,28 @@ public class GraphTree {
 
 				int cur = queue.poll();
 				curNum--;
-				nodeNum++;
 
-				for (int i = cur; i < length; i++) {
+				for (int i = 0; i < length; i++) {
 					if (arr[cur][i] == 1) {
-						queue.add(i);
 						edgeNum++;
-						nextNum++;
+						if (book[i] == false) {
+							queue.add(i);
+							nodeNum++;
+							book[i] = true;
+							nextNum++;
+						}
 					}
 				}
 			}
 			curNum = nextNum;
 			nextNum = 0;
 		}
+		System.out.println("nodeNum=" + nodeNum);
+		System.out.println("edgeNum=" + edgeNum);
 		if (nodeNum == length && edgeNum == (length - 1))
-			return 1;
+			return true;
 		else
-			return 0;
+			return false;
 	}
 
 	private static boolean hasCircle = false;
@@ -87,16 +96,18 @@ public class GraphTree {
 	private static int N = 4;
 
 	// dfs时 判定方法相同
-	public static int isTreeDfs(int arr[][], int step) {
+	public static boolean isTreeDfs(int arr[][]) {
 
 		boolean[] book = new boolean[N];
 		dfs(arr, book, 0, -1);
-		if (!hasCircle || countNode == N)
-			return 1;
+		if (!hasCircle && countNode == N)
+			return true;
 		else
-			return 0;
+			return false;
 	}
 
+	// 用dfs时，若无环，则只需要排除1-2，2-1这种无向图的边即可，不需要book数组，若有环可将二者结合使用
+	// 先往下走再判断是否重复，重复标记后返回。
 	// 判断是否有环，计算相连节点个数
 	public static void dfs(int[][] arr, boolean book[], int cur, int lastNode) {
 

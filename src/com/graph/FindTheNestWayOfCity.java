@@ -68,6 +68,8 @@ public class FindTheNestWayOfCity {
 
 	private void dfs(int arr[][], boolean[] book, int cur, int count) {
 
+		if (count > min)
+			return;
 		if (cur == descy) {
 			if (count < min) {
 				min = count;

@@ -5,10 +5,9 @@ import java.util.Queue;
 
 public class FindAllNode {
 
-	private static int n = 5;
-	private static int[][] arr = { { 0, 1, 1, 0, 1 }, { 1, 0, 0, 1, 0 }, { 1, 0, 0, 0, 1 }, { 0, 1, 0, 0, 0 },
-			{ 1, 0, 1, 0, 0 } };
-	private static int[] value = { 1, 2, 3, 4, 5 };
+	private static int n = 4;
+	private static int[][] arr = { { 0, 1, 0, 1 }, { 1, 0, 0, 0 }, { 0, 0, 0, 1 }, { 1, 0, 1, 0 } };
+	private static int[] value = { 1, 2, 3, 4 };
 
 	private static boolean[] book = new boolean[n];
 	private static int sum = 0;
@@ -16,9 +15,9 @@ public class FindAllNode {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		book[0] = true;
-		// dfs(0);
+		dfs(0);
 		System.out.println("--------------");
-		bfs();
+		// bfs();
 	}
 
 	// cur为第cur个数下标
@@ -61,6 +60,7 @@ public class FindAllNode {
 				curNum--;
 				for (int i = 0; i < n; i++) {
 					if (arr[cur][i] == 1 && book[i] == false) {
+						book[i] = true;
 						System.out.println(value[i]);
 						sum++;
 						if (sum == n)
