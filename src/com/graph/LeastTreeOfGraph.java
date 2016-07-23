@@ -1,5 +1,6 @@
 package com.graph;
 
+//求最小联通树
 public class LeastTreeOfGraph {
 
 	// 边
@@ -21,6 +22,7 @@ public class LeastTreeOfGraph {
 		}
 		System.out.println();
 
+		// 并查集初始化
 		for (int i = 0; i < mergeArr.length; i++)
 			mergeArr[i] = i;
 
