@@ -1,12 +1,19 @@
 package com.graph;
 
+//Floyd-Warshall
+//多源最短路径问题
+//解决正负权值
 public class ShortestRoadOfAnyTwoCity {
 
 	// private static int[][] arr = { { 0, 2, 6, 4 }, { 100, 0, 3, 100 }, { 7,
 	// 100, 0, 1 }, { 5, 100, 12, 0 } };
+
 	// private static int[][] arr = { { 0, 5, 1, 20 }, { 100, 0, 100, 5 }, {
 	// 100, 100, 0, 1 }, { 100, 100, 100, 0 } };
-	private static int[][] arr = { { 0, 5, 100, 20 }, { 100, 0, 1, 5 }, { 100, 100, 0, 1 }, { 100, 100, 100, 0 } };
+
+	// private static int[][] arr = { { 0, 5, 100, 20 }, { 100, 0, 1, 5 }, {
+	// 100, 100, 0, 1 }, { 100, 100, 100, 0 } };
+	private static int[][] arr = { { 0, 2, -2, 100 }, { 100, 0, 4, -2 }, { 100, 100, 0, 3 }, { 5, 100, 100, 0 } };
 
 	private static int N = 4;
 
@@ -22,6 +29,7 @@ public class ShortestRoadOfAnyTwoCity {
 
 	// 每计算一次，数组里全部数值都是插入过节点后的最短路径，下次计算时复用上次结果。
 	// 故最后的结果是插入节点（或不需要插入）后的最短路径
+	// 动态规划
 	public static void getShortestRoadOfAnyTwoCity() {
 		for (int k = 0; k < N; k++) {
 			for (int i = 0; i < N; i++) {
